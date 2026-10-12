@@ -1,0 +1,10 @@
+data/raw/
+data/processed/*
+!data/processed/trip_labels.csv
+results/label_maps/
+results/real_maps/
+results/demo_maps/
+__pycache__/
+.ipynb_checkpoints/
+cache/
+*.pyc
