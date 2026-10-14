@@ -2,7 +2,7 @@
     - Ques- what does groupby("trip") do, why does the first row of each trip have NaN, and which trip is faster?
         - Answer - groupby("trip") splits the table into two groups here a and b, so rather than having 10 items in the table, we see grouped items, a much cleaner representation. First row of each trip have NaN value because of diff() function, it subtracts previous row from the current row and both trips's first row have no previous row, so giving an unknown(NaN) value. Trip a is faster than trip b because Trip a's mean is greater than trip b's.
 
-- DAY 04 (dataset factos)
+- DAY 04 (dataset facts)
     - Files per dataset: .pos (GNSS positions, the data we use), .kml (same path, for Google Earth), .mp4 (video)
     - Dataset1: main road only
     - Dataset2: service road only
@@ -18,3 +18,18 @@
 
     - Main road (Dataset1): no. of lanes are 3, and speed of vehicles is fast
     - Service road (Dataset2): no. of lanes are 2, and vehicles are moving slow
+
+- DAY 05: converted data
+
+        | Dataset | Points | Duration (s) | Step (s) | Q | Where on the highway |
+        |---|---|---|---|---|---|
+        | Dataset1 | 256 | 255 | 1.00 | 5 | lat 12.76-12.78, lon 77.32-77.37 |
+        | Dataset2 | 293 | 293 | 1.00 | 5 | same stretch as Dataset1 |
+        | Dataset3 | 784 | 783 | 1.00 | 5 | lat 12.49-12.55, lon 76.79-76.93 |
+        | Dataset4 | 876 | 875 | 1.00 | 5 | lat 12.58-12.64, lon 77.02-77.17 |
+        | Dataset5 | 356 | 355 | 1.00 | 5 | lat 12.86-12.90, lon 77.43-77.47 |
+
+    - One position per second in every dataset, about 2,700 points in total.
+    - Every point has Q = 5 (single-point solution, the least accurate type). Expect errors of several  metres. That is the same size as the gap between the two roads, which is why the problem is hard.
+    - Dataset1 (main road) and Dataset2 (service road) cover the same stretch, so their paths sit on top of each other in the combined plot. That is why I saw four lines, not five.
+    - Datasets 3, 4 and 5 are at different places along the highway.

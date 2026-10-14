@@ -1,4 +1,5 @@
 data/raw/
+data/trips/
 data/processed/*
 !data/processed/trip_labels.csv
 results/label_maps/
