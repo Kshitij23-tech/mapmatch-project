@@ -9,3 +9,9 @@ __pycache__/
 .ipynb_checkpoints/
 cache/
 *.pyc
+cache/
+results/maps/
+results/label_aids/
+results/label_check/
+results/failure_maps/
+data/processed/*

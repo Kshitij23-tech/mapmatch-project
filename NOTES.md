@@ -33,3 +33,8 @@
     - Every point has Q = 5 (single-point solution, the least accurate type). Expect errors of several  metres. That is the same size as the gap between the two roads, which is why the problem is hard.
     - Dataset1 (main road) and Dataset2 (service road) cover the same stretch, so their paths sit on top of each other in the combined plot. That is why I saw four lines, not five.
     - Datasets 3, 4 and 5 are at different places along the highway.
+
+- Day 06
+    - Roads downloaded: 2823 edges. Main road tags: "motorway", "motorway_link" . Service road tags: "primary" "primary_link", "secondary", "tertiary", "service" .
+    - Sanity check: Dataset1 96 % on main road, Dataset2 100 % on service road.
+    - What surprised me: service road speed is only 10 km/h below the main road.

@@ -4,8 +4,10 @@ from . import config as C
 
 
 def to_seconds(s):
+    """Seconds since the first row of this file."""
     if pd.api.types.is_numeric_dtype(s):
-        return s.astype(float) * C.TIME_NUMERIC_SCALE
+        v = s.astype(float) * C.TIME_NUMERIC_SCALE
+        return v - v.min()
     dt = pd.to_datetime(s, errors="coerce")
     return (dt - dt.min()).dt.total_seconds()
 
@@ -17,13 +19,14 @@ def load_raw():
     parts = []
     for p in files:
         d = pd.read_csv(p, sep=C.SEP, nrows=C.MAX_ROWS)
-        if C.COLS["trip"] is None:
-            d["trip"] = p.stem
+        d = d.rename(columns={v: k for k, v in C.COLS.items() if v})
+        d["trip"] = p.stem if C.COLS["trip"] is None else d["trip"].astype(str)
+        d["idx"] = range(len(d))                      # row number in the file; labels refer to it
+        d["t"] = to_seconds(d["time"])
         parts.append(d)
     df = pd.concat(parts, ignore_index=True)
-    df = df.rename(columns={v: k for k, v in C.COLS.items() if v})
-    df["t"] = to_seconds(df["time"])
-    df = df[[c for c in ["trip", "t", "lat", "lon", "speed", "height"] if c in df.columns]].copy()
+    keep = [c for c in ["trip", "idx", "t", "lat", "lon", "speed", "height"] if c in df.columns]
+    df = df[keep].copy()
     df["trip"] = df["trip"].astype(str)
     if C.SPLIT_GAP_S:
         df = df.sort_values(["trip", "t"])

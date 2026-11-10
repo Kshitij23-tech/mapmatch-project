@@ -1,0 +1,54 @@
+downloading area 1 of 4 ...
+downloading area 2 of 4 ...
+downloading area 3 of 4 ...
+downloading area 4 of 4 ...
+
+road types in the download (hw = OpenStreetMap highway tag, grp: 0 main, 1 service, 2 other):
+hw             grp
+living_street  2         2
+motorway       0        30
+motorway_link  0        32
+primary        0       208
+primary_link   0        34
+residential    1      1534
+secondary      0        18
+service        1       195
+tertiary       0       631
+tertiary_link  2        15
+unclassified   2       124
+
+nearest road of every GPS point (within 40 m), per dataset:
+    trip            hw                         name          ref  bridge  grp  points  share_%
+Dataset1      motorway  Bengaluru-Mysuru Expressway        NH275    True    0     244       95
+Dataset1       primary      Bengaluru - Mysuru Road        NH275   False    0       8        3
+Dataset1      motorway  Bengaluru-Mysuru Expressway        NH275   False    0       2        1
+Dataset1       primary      Bengaluru - Mysuru Road        NH275    True    0       1        0
+Dataset1      tertiary                                              True    0       1        0
+Dataset2       primary      Bengaluru - Mysuru Road        NH275   False    0     214       73
+Dataset2       primary      Bengaluru - Mysuru Road                False    0      40       14
+Dataset2       primary      Bengaluru - Mysuru Road        NH275    True    0      38       13
+Dataset2   residential                                             False    1       1        0
+Dataset3      motorway  Bengaluru-Mysuru Expressway   NH275;EC34    True    0     432       55
+Dataset3      tertiary        Bangalore-Mysore Road                False    0     241       31
+Dataset3       primary        Bangalore-Mysore Road                False    0      75       10
+Dataset3       primary                                             False    0      15        2
+Dataset3 motorway_link                                             False    0       7        1
+Dataset3      motorway  Bengaluru-Mysuru Expressway   NH275;EC34   False    0       6        1
+Dataset4      motorway  Bengaluru-Mysuru Expressway NH275 NH275;    True    0     371       42
+Dataset4      motorway  Bengaluru-Mysuru Expressway        NH275    True    0     297       34
+Dataset4      tertiary      Bengaluru - Mysuru Road        NH275   False    0     122       14
+Dataset4      tertiary      Bengaluru - Mysuru Road                False    0      34        4
+Dataset4      motorway  Bengaluru-Mysuru Expressway        NH275   False    0      15        2
+Dataset4 motorway_link                                             False    0      14        2
+Dataset5       primary     Bengaluru-Mysuru Highway   NH275;EC34   False    0     165       46
+Dataset5       primary  Bengaluru-Mysuru Expressway   NH275;EC34   False    0     122       34
+Dataset5       primary     Bengaluru-Mysuru Highway   NH275;EC34    True    0      25        7
+Dataset5       primary Bengaluru-Mysuru Service lan   NH275;EC34   False    0      18        5
+Dataset5       primary Bengaluru-Mysuru Expressway    NH275;EC34    True    0      15        4
+Dataset5      motorway  Bengaluru-Mysuru Expressway        NH275   False    0       7        2
+
+sanity check with the datasets you know:
+  Dataset1 should be on the main road: 100% of its points are nearest to a main road edge  -> OK
+  Dataset2 should be on the service road: 0% of its points are nearest to a service road edge  -> TOO LOW: change MAIN_TAGS / SERVICE_TAGS / words in src/config.py
+
+saved results/network.png and results/roads_map.html
