@@ -40,11 +40,12 @@ def trip_map(d, groups=None, edges=None, label_every=0):
 
 
 def roads_map(edges, df):
-    """All roads (coloured by group) and all trips as dots."""
+    """All roads (coloured by group) and all trips as dots. Opens zoomed out so that all five datasets are visible."""
     m = _base(df["lat"].mean(), df["lon"].mean(), 12)
     _roads(m, edges)
     palette = ["#1d4ed8", "#be123c", "#15803d", "#7c3aed", "#b45309", "#0e7490"]
     for k, (tid, d) in enumerate(df.groupby("trip")):
-        for la, lo in zip(d["lat"].to_numpy()[::5], d["lon"].to_numpy()[::5]):
-            folium.CircleMarker([la, lo], radius=2, color=palette[k % len(palette)], fill=True, tooltip=tid).add_to(m)
+        for la, lo in zip(d["lat"].to_numpy()[::3], d["lon"].to_numpy()[::3]):
+            folium.CircleMarker([la, lo], radius=4, color=palette[k % len(palette)], fill=True, fill_opacity=1, tooltip=tid).add_to(m)
+    m.fit_bounds([[df["lat"].min(), df["lon"].min()], [df["lat"].max(), df["lon"].max()]])
     return m

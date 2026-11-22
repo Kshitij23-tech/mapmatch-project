@@ -38,3 +38,11 @@
     - Roads downloaded: 2823 edges. Main road tags: "motorway", "motorway_link" . Service road tags: "primary" "primary_link", "secondary", "tertiary", "service" .
     - Sanity check: Dataset1 96 % on main road, Dataset2 100 % on service road.
     - What surprised me: service road speed is only 10 km/h below the main road.
+
+- Day 2
+    - Video offsets: Dataset3 = 10, Dataset4 = 14, Dataset5 = 5.
+    - Dataset3: service road until point 92, main road until 522, then service road.
+    - Dataset4: main road until 387, service road until 828, then main road.
+    - Dataset5: ground road until 54, flyover until 295, then ground road.
+    - Reference main-road distance (m): D1 5833, D2 0, D3 14251, D4 11462, D5 5026.
+    - How sure I am about the boundaries: about 5 points (about 5 seconds).

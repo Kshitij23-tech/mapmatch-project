@@ -1,0 +1,12 @@
+trip,start_idx,end_idx,label,note
+Dataset1,0,255,0,whole dataset on one road type
+Dataset2,0,292,1,whole dataset on one road type
+Dataset3,0,92,1,start: service road
+Dataset3,93,522,0,main road
+Dataset3,523,783,1,"after the exit: 1 = service road, 2 = other road"
+Dataset4,0,387,0,start: main road
+Dataset4,388,828,1,service road
+Dataset4,829,875,0,back on the main road
+Dataset5,0,54,1,start: ground-level road below the flyover
+Dataset5,55,295,0,on the flyover
+Dataset5,296,355,1,back on the ground road
