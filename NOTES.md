@@ -39,7 +39,7 @@
     - Sanity check: Dataset1 96 % on main road, Dataset2 100 % on service road.
     - What surprised me: service road speed is only 10 km/h below the main road.
 
-- Day 2
+- Day 07
     - Video offsets: Dataset3 = 10, Dataset4 = 14, Dataset5 = 5.
     - Dataset3: service road until point 92, main road until 522, then service road.
     - Dataset4: main road until 387, service road until 828, then main road.
