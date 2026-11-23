@@ -51,8 +51,8 @@ WINDOW = 5
 GEO_WINDOW = 9
 
 # ---------- Simulator (set from the numbers printed on Day 5) ----------
-SIM_GAP_M = 20.0                 # distance between main road and service road
-SIM_SIGMA_M = 6.0                # GPS error of the simulated receiver
-V_HW = 22.0                      # typical speed on the main road (m/s)
-V_SR = 17.0                      # typical speed on the service road (m/s)
-SIM_STOP_P = 0.003               # chance per second that a service-road vehicle stops
+SIM_GAP_M = 15.0
+SIM_SIGMA_M = 5.1
+V_HW = 26.9
+V_SR = 15.3
+SIM_STOP_P = 0.003

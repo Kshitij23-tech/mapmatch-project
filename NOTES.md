@@ -64,3 +64,10 @@ Day 09 - HMM matcher
         - Road changes: the HMM found only 1 of the 2 true changes in D3, D4 and D5 (D5: 0 of 2). The changes it finds are late or missed.
         - Dataset2: the matcher cannot be told apart from nearest road here, because it is a single-road trip.
     - What the switch cost means on a real road: BETA is the metres of disagreement between straight-line and route distance that cost one unit of log-probability. With beta 5, the HMM doubts a jump to a road whose route is 5 m longer than the straight line. A bigger beta tolerates detours and makes the HMM jump more easily. A smaller beta makes it stay on its road. NO_ROUTE_PENALTY 30 means "switching to a road with no driveable path is about as unlikely as being 30 units off". On the highway this stops the matcher hopping between the expressway and the parallel service road unless it has a real path between them.
+
+- Day 10 - measured values and simulator
+    - Measured: GPS error sigma 5.1 m, road gap 15 m, speed main 26.9 m/s (97 km/h), service 15.3 m/s (55 km/h).
+    - Simulator copy of reality: 
+        The simulated speeds match the real ones within 0.1 m/s. Main road is 26.8 against 26.9 m/s and service road is 15.2 against 15.3 m/s. The simulated trips are smoother than real ones. The standard deviation is 5.3 against 6.7 on the main road and 3.5 against 6.8 on the service road. So the simulator is a slightly easier version of reality.
+    - Why the simulator matters: 
+        There are only five real trips, and one of them is service-only and one is main-only. That is too little to train a classifier and also test it fairly. The simulator makes many trips with this noise and gap, so the classifier has enough to learn from. The five real trips are kept for testing only.
