@@ -53,3 +53,14 @@
     - Extra road changes invented: 74 in total (D1 12, D3 1, D4 53, D5 8).
     - Why nearest road fails here: the two roads are only a short distance apart, so the GPS error is of similar size to the gap and the nearest road flips between them. (gap and GPS error in metres: measure on Day 10)
     - Dataset5: the score was 0.04 before the area rule (the flyover is named "Highway" in OpenStreetMap there) and 0.86 after it.
+
+Day 09 - HMM matcher
+    - HMM accuracy, all datasets together: 0.86 (nearest road: 0.86). Macro F1 is 0.86 for the HMM against 0.85 for nearest road. Chosen sigma 5 m, beta 5 m. sigma 10 made the HMM too sticky: Dataset4 fell to 0.49.
+    - Distance on the main road, error in metres (HMM): D1 0 (nearest road: 230), D2 0 (0), D3 217 (217), D4 4,517 (4,160), D5 1,012 (1,073).
+    - Extra road changes (HMM): D1 0, D2 0, D3 1, D4 5, D5 4, which is 10 in total. Nearest road: 12 + 0 + 1 + 53 + 8 = 74 in total. The HMM removes about 86% of the false switches. This is its clearest gain.
+    - Where the HMM still goes wrong:
+        - Dataset4: accuracy is 0.66. The GPS is noisier here, about 5 m from the nearest road against 1.4–2.4 m in Dataset3. In the service-road stretch most points are nearer the expressway than the service road, so any method that works from position alone fails. This is a finding about the data, not a bug.
+        - Dataset5 (flyover area): accuracy is 0.87, the main-road distance is off by about 1 km, and there are 4 extra switches. The flyover and the road beneath it lie almost on top of each other.
+        - Road changes: the HMM found only 1 of the 2 true changes in D3, D4 and D5 (D5: 0 of 2). The changes it finds are late or missed.
+        - Dataset2: the matcher cannot be told apart from nearest road here, because it is a single-road trip.
+    - What the switch cost means on a real road: BETA is the metres of disagreement between straight-line and route distance that cost one unit of log-probability. With beta 5, the HMM doubts a jump to a road whose route is 5 m longer than the straight line. A bigger beta tolerates detours and makes the HMM jump more easily. A smaller beta makes it stay on its road. NO_ROUTE_PENALTY 30 means "switching to a road with no driveable path is about as unlikely as being 30 units off". On the highway this stops the matcher hopping between the expressway and the parallel service road unless it has a real path between them.

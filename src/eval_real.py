@@ -9,8 +9,7 @@ from .evaluate import confusion, group_pred, main_distance, metrics, switch_scor
 from .network import Network
 from .labels import attach
 
-# Add a name here when you reach its day: "nearest" (Day 3), "hmm" (Day 4), "ml" (Day 6), "hybrid" (Day 7)
-METHODS = ["nearest"]
+METHODS = ["nearest", "hmm"]
 EXTRA = []
 
 NEED_FEATURES = any(m in METHODS + EXTRA for m in ["ml", "hybrid", "ml_real", "hybrid_real"])
