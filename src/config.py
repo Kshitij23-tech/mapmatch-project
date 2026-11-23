@@ -33,6 +33,10 @@ SERVICE_WORDS = ["Mysuru Road", "Mysore Road", "Highway", "Service"]
 # Datasets that are known to be entirely one road type (0 = main road, 1 = service road)
 TRIP_KNOWN = {"Dataset1": 0, "Dataset2": 1}
 
+# Places where the road names mean something different from the rest of the area.
+# Near Dataset5 the flyover is named "Highway" and the roads on the ground are "Expressway" / "Service lane".
+AREA_RULES = [{"trip": "Dataset5", "main_words": ["Highway"], "service_words": ["Expressway", "Service"]}]
+
 # ---------- Matching (tuned on Day 4) ----------
 MAX_SPEED_MS = 60.0
 MIN_POINTS = 15

@@ -46,3 +46,10 @@
     - Dataset5: ground road until 54, flyover until 295, then ground road.
     - Reference main-road distance (m): D1 5833, D2 0, D3 14251, D4 11462, D5 5026.
     - How sure I am about the boundaries: about 5 points (about 5 seconds).
+
+- Day 08 - baseline: nearest road
+    - Accuracy, all datasets together: 0.86 (2201 of 2565 points right). Worst dataset: Dataset4 (0.67).
+    - Distance on the main road, error in metres: D1 230 , D2 0 , D3 217 , D4 4160 , D5 1073 .
+    - Extra road changes invented: 74 in total (D1 12, D3 1, D4 53, D5 8).
+    - Why nearest road fails here: the two roads are only a short distance apart, so the GPS error is of similar size to the gap and the nearest road flips between them. (gap and GPS error in metres: measure on Day 10)
+    - Dataset5: the score was 0.04 before the area rule (the flyover is named "Highway" in OpenStreetMap there) and 0.86 after it.

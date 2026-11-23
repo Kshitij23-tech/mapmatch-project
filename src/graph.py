@@ -70,6 +70,22 @@ def build_network(G, epsg):
     edges["bridge"] = edges["bridge"].map(lambda v: text_of(v) not in ("", "no", "nan", "None"))
     return edges.to_crs(epsg)
 
+def apply_area_rules(edges, df):
+    """Some places name the roads differently from the rest of the area. Roads near the dataset named in a rule get their group from the words of that rule."""
+    for rule in C.AREA_RULES:
+        d = df[df["trip"] == rule["trip"]]
+        if d.empty:
+            continue
+        zone = LineString(d[["x", "y"]].to_numpy()).buffer(rule.get("buffer_m", 300.0))
+        changed = 0
+        for i in edges.index[edges.intersects(zone)]:
+            words = (text_of(edges.at[i, "name"]) + " " + text_of(edges.at[i, "ref"])).lower()
+            new = 1 if any(w.lower() in words for w in rule["service_words"]) else 0 if any(w.lower() in words for w in rule["main_words"]) else None
+            if new is not None and new != edges.at[i, "grp"]:
+                edges.at[i, "grp"] = new
+                changed += 1
+        print(f"area rule for {rule['trip']}: {changed} roads changed group")
+    return edges
 
 def nearest_table(df, edges, radius=40.0):
     """For every dataset: which kind of road is each point nearest to? (the table you read on Day 1)"""
@@ -97,6 +113,7 @@ if __name__ == "__main__":
     poly = study_polygon(df, epsg)
     G = download(poly)
     edges = build_network(G, epsg)
+    edges = apply_area_rules(edges, df)
     print("\nroad types in the download (hw = OpenStreetMap highway tag, grp: 0 main, 1 service, 2 other):")
     print(edges.groupby(["hw", "grp"]).size().to_string())
     joblib.dump((G, edges, epsg), C.PROC / "network.joblib")
