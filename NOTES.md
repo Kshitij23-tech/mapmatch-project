@@ -71,3 +71,14 @@ Day 09 - HMM matcher
         The simulated speeds match the real ones within 0.1 m/s. Main road is 26.8 against 26.9 m/s and service road is 15.2 against 15.3 m/s. The simulated trips are smoother than real ones. The standard deviation is 5.3 against 6.7 on the main road and 3.5 against 6.8 on the service road. So the simulator is a slightly easier version of reality.
     - Why the simulator matters: 
         There are only five real trips, and one of them is service-only and one is main-only. That is too little to train a classifier and also test it fairly. The simulator makes many trips with this noise and gap, so the classifier has enough to learn from. The five real trips are kept for testing only.
+
+Day 6 - classifier
+    - Simulated validation accuracy: nearest 0.816, HMM 0.862, classifier 0.974, combined (hybrid) 0.986. The classifier on its own scores 0.969 in 5-fold cross-validation with whole trips held out.
+    - Classifier on real data: accuracy 0.89 (HMM: 0.86, nearest road: 0.86). Macro F1 is 0.89 against 0.86. Per dataset, the classifier is best on Dataset4: 0.92 against 0.66 for the HMM, where the position-based methods fail. It is worse than the HMM on Dataset1 (0.92 against 1.00), Dataset2 (0.86 against 1.00), Dataset3 (0.93 against 0.98) and Dataset5 (0.73 against 0.87). Dataset4's main-road distance error falls from 4,517 m to 656 m.
+    - Most important features: sp_mean (0.318), sp_max (0.258) and sp_min (0.149). These are the mean, maximum and minimum speed over the window. Speed carries about 72% of the classifier's weight. The next features are dHS_mean and dHS (0.088 each), the distance to the highway and to the service road.
+    - Chosen fusion weight: 2. On the simulated validation set, accuracy was 0.925 at weight 0.25, 0.949 at 0.5, 0.974 at 1, 0.986 at 2 and 0.984 at 4.
+    - Gap between simulated and real accuracy: 0.974 → 0.89 (about 8.4 points). Possible reasons:
+        - The simulator is smoother than real driving. The service-road speed standard deviation is 3.5 in the simulator against 6.8 in the real data. Real service roads have slow traffic, junctions and stops. The classifier relies on speed, so real slowdowns on the main road or fast stretches on the service road confuse it.
+        - Dataset2 (service-only) scores 0.86, with 10 extra switches and 1,009 m of false main-road distance. The classifier sometimes calls fast service-road stretches "main".
+        - Dataset5 (flyover) scores 0.73. The flyover has main-road speeds on a road that is labelled service in our rules, so speed gives the wrong answer there.
+        - The classifier has no smoothing. Its extra road changes (5, 10, 5, 10, 8) are higher than the HMM's. The hybrid fixes this by combining it with the HMM.

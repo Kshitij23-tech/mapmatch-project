@@ -9,7 +9,7 @@ from .evaluate import confusion, group_pred, main_distance, metrics, switch_scor
 from .network import Network
 from .labels import attach
 
-METHODS = ["nearest", "hmm"]
+METHODS = ["nearest", "hmm", "ml"]
 EXTRA = []
 
 NEED_FEATURES = any(m in METHODS + EXTRA for m in ["ml", "hybrid", "ml_real", "hybrid_real"])
