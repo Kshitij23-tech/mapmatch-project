@@ -1,0 +1,65 @@
+method,trip,from_idx,to_idx,points,true,predicted,distance_to_road_change,speed_m_s,where
+nearest,Dataset1,177,178,2,0,1,,22.6,far from a road change
+nearest,Dataset1,180,181,2,0,1,,21.6,far from a road change
+nearest,Dataset1,187,187,1,0,1,,29.4,far from a road change
+nearest,Dataset1,193,195,3,0,1,,22.5,far from a road change
+nearest,Dataset1,197,197,1,0,1,,21.6,far from a road change
+nearest,Dataset1,202,202,1,0,1,,22.8,far from a road change
+nearest,Dataset2,206,206,1,1,2,,7.0,far from a road change
+nearest,Dataset3,76,76,1,1,2,17.0,11.4,far from a road change
+nearest,Dataset3,91,92,2,1,0,1.0,1.9,near a road change
+nearest,Dataset3,523,535,13,1,0,0.0,16.4,near a road change
+nearest,Dataset3,563,563,1,1,2,40.0,12.9,far from a road change
+nearest,Dataset4,2,6,5,0,1,382.0,12.8,far from a road change
+nearest,Dataset4,149,149,1,0,2,239.0,33.8,far from a road change
+nearest,Dataset4,158,158,1,0,1,230.0,28.9,far from a road change
+nearest,Dataset4,333,333,1,0,1,55.0,26.6,far from a road change
+nearest,Dataset4,388,398,11,1,0,0.0,5.4,near a road change
+nearest,Dataset4,403,405,3,1,0,15.0,13.1,far from a road change
+nearest,Dataset4,421,421,1,1,0,33.0,20.6,far from a road change
+nearest,Dataset4,423,424,2,1,0,35.0,20.8,far from a road change
+nearest,Dataset4,437,438,2,1,0,49.0,16.5,far from a road change
+nearest,Dataset4,451,451,1,1,0,63.0,17.9,far from a road change
+nearest,Dataset4,472,472,1,1,0,84.0,10.7,far from a road change
+nearest,Dataset4,474,474,1,1,0,86.0,13.2,far from a road change
+nearest,Dataset4,480,482,3,1,0,92.0,16.6,far from a road change
+nearest,Dataset4,536,536,1,1,0,148.0,22.2,far from a road change
+nearest,Dataset4,539,563,25,1,0,151.0,20.4,far from a road change
+nearest,Dataset4,565,565,1,1,0,177.0,14.9,far from a road change
+nearest,Dataset4,567,612,46,1,0,179.0,17.9,far from a road change
+nearest,Dataset4,614,616,3,1,2,213.0,10.6,far from a road change
+nearest,Dataset4,619,620,2,1,0,209.0,9.9,far from a road change
+nearest,Dataset4,623,665,43,1,0,164.0,17.0,far from a road change
+nearest,Dataset4,671,721,51,1,0,108.0,16.7,far from a road change
+nearest,Dataset4,725,765,41,1,0,64.0,11.4,far from a road change
+nearest,Dataset4,767,784,18,1,0,45.0,16.1,far from a road change
+nearest,Dataset4,786,791,6,1,0,38.0,20.0,far from a road change
+nearest,Dataset4,804,804,1,1,0,25.0,13.7,far from a road change
+nearest,Dataset4,806,812,7,1,0,17.0,14.0,far from a road change
+nearest,Dataset4,814,816,3,1,0,13.0,12.8,far from a road change
+nearest,Dataset4,824,825,2,1,0,4.0,2.9,near a road change
+nearest,Dataset4,827,828,2,1,0,1.0,5.0,near a road change
+nearest,Dataset5,55,71,17,0,1,0.0,17.5,near a road change
+nearest,Dataset5,79,79,1,0,1,24.0,17.8,far from a road change
+nearest,Dataset5,207,207,1,0,1,89.0,19.5,far from a road change
+nearest,Dataset5,235,250,16,0,1,46.0,23.3,far from a road change
+nearest,Dataset5,280,295,16,0,1,1.0,22.8,near a road change
+hmm,Dataset3,91,92,2,1,0,1.0,1.9,near a road change
+hmm,Dataset3,523,535,13,1,0,0.0,16.4,near a road change
+hmm,Dataset4,2,7,6,0,1,381.0,13.2,far from a road change
+hmm,Dataset4,388,396,9,1,0,0.0,5.0,near a road change
+hmm,Dataset4,536,816,281,1,0,13.0,16.2,far from a road change
+hmm,Dataset4,828,828,1,1,0,1.0,5.4,near a road change
+hmm,Dataset5,55,71,17,0,1,0.0,17.5,near a road change
+hmm,Dataset5,235,250,16,0,1,46.0,23.3,far from a road change
+hmm,Dataset5,281,295,15,0,1,1.0,22.7,near a road change
+hybrid,Dataset3,93,107,15,0,1,0.0,9.6,near a road change
+hybrid,Dataset3,523,525,3,1,0,0.0,21.4,near a road change
+hybrid,Dataset4,0,8,9,0,1,380.0,12.8,far from a road change
+hybrid,Dataset4,388,392,5,1,0,0.0,5.0,near a road change
+hybrid,Dataset4,521,552,32,1,0,133.0,22.4,far from a road change
+hybrid,Dataset4,829,829,1,0,1,0.0,7.1,near a road change
+hybrid,Dataset5,55,72,18,0,1,0.0,17.5,near a road change
+hybrid,Dataset5,79,98,20,0,1,24.0,18.6,far from a road change
+hybrid,Dataset5,236,250,15,0,1,46.0,23.3,far from a road change
+hybrid,Dataset5,281,295,15,0,1,1.0,22.7,near a road change

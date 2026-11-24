@@ -72,7 +72,7 @@ Day 09 - HMM matcher
     - Why the simulator matters: 
         There are only five real trips, and one of them is service-only and one is main-only. That is too little to train a classifier and also test it fairly. The simulator makes many trips with this noise and gap, so the classifier has enough to learn from. The five real trips are kept for testing only.
 
-Day 6 - classifier
+- Day 11 - classifier
     - Simulated validation accuracy: nearest 0.816, HMM 0.862, classifier 0.974, combined (hybrid) 0.986. The classifier on its own scores 0.969 in 5-fold cross-validation with whole trips held out.
     - Classifier on real data: accuracy 0.89 (HMM: 0.86, nearest road: 0.86). Macro F1 is 0.89 against 0.86. Per dataset, the classifier is best on Dataset4: 0.92 against 0.66 for the HMM, where the position-based methods fail. It is worse than the HMM on Dataset1 (0.92 against 1.00), Dataset2 (0.86 against 1.00), Dataset3 (0.93 against 0.98) and Dataset5 (0.73 against 0.87). Dataset4's main-road distance error falls from 4,517 m to 656 m.
     - Most important features: sp_mean (0.318), sp_max (0.258) and sp_min (0.149). These are the mean, maximum and minimum speed over the window. Speed carries about 72% of the classifier's weight. The next features are dHS_mean and dHS (0.088 each), the distance to the highway and to the service road.
@@ -82,3 +82,20 @@ Day 6 - classifier
         - Dataset2 (service-only) scores 0.86, with 10 extra switches and 1,009 m of false main-road distance. The classifier sometimes calls fast service-road stretches "main".
         - Dataset5 (flyover) scores 0.73. The flyover has main-road speeds on a road that is labelled service in our rules, so speed gives the wrong answer there.
         - The classifier has no smoothing. Its extra road changes (5, 10, 5, 10, 8) are higher than the HMM's. The hybrid fixes this by combining it with the HMM.
+
+- Day 12 - final table
+    - Pooled accuracy: nearest 0.858 , HMM 0.860 , classifier 0.889 , combined 0.948 .
+    - Distance on main road, error (m): nearest 1136 , HMM 1149 , combined 417 .
+    - Combined vs HMM: better by 8.8 accuracy points (0.948 against 0.860) and a macro F1 of 0.948 against 0.856, because the HMM keeps the path smooth but cannot tell the roads apart when the GPS is noisy, and the classifier tells them apart from speed but switches too often. Together they fix Dataset4 (0.661 → 0.946, main-road distance error 4,517 m → 628 m) and keep the HMM's low number of false road changes (10 in total for both). .
+        - Extra road changes (all trips, found within 5 s): nearest 74, HMM 10, classifier 38, combined 10.
+        - Road changes found: combined finds 3 of 6 (D3 1/2, D4 2/2, D5 0/2). Dataset4 is the only trip where it finds both.
+        - Simulated to real gap: 0.986 → 0.948 (3.8 points) for combined, against 0.974 → 0.889 (8.5 points) for the classifier alone. The combination is also more robust.
+
+- Day 13 - flyover and failures
+    - Flyover: height rises by 6.7 m (the peak above the base height of 686.9 m) between points 10 and 272 of Dataset5 (49 points are more than 3 m above the base); 0 % of the points matched to bridge roads, because OpenStreetMap has no separate flyover road here; accuracy on the flyover 1.000 for the HMM and the hybrid (nearest road 0.980, classifier alone 0.694). The HMM is right because of the road-name rule for this area (AREA_RULES), not because it detects the bridge.
+    - Failure 1: Delay at road changes. The matcher needs several points to trust a change, so it switches late. Hybrid: 57 wrong points near a road change, for example Dataset5 points 55–72 (18 points) and Dataset3 points 93–107 (15 points).
+    - Failure 2: Noisy GPS in Dataset4. Points 521–552 (32 points, the longest wrong run) are true service road but predicted main. The speed is 22.4 m/s, like the expressway's, and the points lie nearer the expressway because the GPS here is about 5 m from the nearest road.
+    - Failure 3: Dataset5 flyover area. Points 79–98 (20 points) and 236–250 (15 points) are true main but predicted service, 24 m and 46 m from a road change, at 18.6 and 23.3 m/s. The flyover and the road below almost overlap, so position cannot separate them.
+    - What would help (future work): denser and more accurate GPS (for example dual-frequency GPS, or 5 Hz instead of 1 Hz); a better road map with the flyover and the service road drawn separately; more real trips for training, since the simulator is smoother than real driving; using the dashcam video (lane or road-sign detection) or a phone gyroscope to tell the two levels apart; and a shorter smoothing window that adapts at road changes, so the delay shrinks without adding false switches.
+
+    Totals to quote: hybrid has 133 wrong points out of 2,565 (5.2 %): 76 far from a road change and 57 near one. The HMM has 360 and nearest road has 364.
