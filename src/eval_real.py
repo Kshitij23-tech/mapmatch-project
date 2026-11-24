@@ -9,7 +9,7 @@ from .evaluate import confusion, group_pred, main_distance, metrics, switch_scor
 from .network import Network
 from .labels import attach
 
-METHODS = ["nearest", "hmm", "ml"]
+METHODS = ["nearest", "hmm", "ml", "hybrid"]
 EXTRA = []
 
 NEED_FEATURES = any(m in METHODS + EXTRA for m in ["ml", "hybrid", "ml_real", "hybrid_real"])
@@ -27,9 +27,6 @@ def main():
         from .features import FEATURES
         saved = joblib.load(C.PROC / "model.joblib")
 
-    if "leuven" in METHODS + EXTRA:
-        from .leuven_match import build_map, match_groups
-        lmap, lgrp = build_map(edges)
 
     preds = {}                                   # method -> list of predicted group arrays (one per trip)
     for k, t in enumerate(trips):
@@ -40,8 +37,6 @@ def main():
             elif m == "hmm":
                 from .hmm_matcher import viterbi
                 t_preds[m] = group_pred(viterbi(t["xy"], t["cands"], net), net.grp)
-            elif m == "leuven":
-                t_preds[m] = match_groups(t["xy"], lmap, lgrp)
             elif m == "ml":
                 t_preds[m] = (p_service(saved["model"], t["feats"], FEATURES) > 0.5).astype(int)
             elif m == "hybrid":
